@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { HydratedDocument } from 'mongoose'
+import mongoose, { HydratedDocument } from 'mongoose'
+import { Todo } from '../todo/todo.model'
 
 export type UserDocument = HydratedDocument<User>
 
@@ -16,6 +17,9 @@ export class User {
 
 	@Prop()
 	avatarPath: string
+
+	@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Todo' }] })
+	todos: Todo[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
