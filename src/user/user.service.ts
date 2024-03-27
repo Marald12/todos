@@ -34,7 +34,7 @@ export class UserService {
 	}
 
 	async findOneById(id: string) {
-		const user = await this.userModel.findById(id)
+		const user = await this.userModel.findById(id).populate('todos')
 
 		if (!user) throw new NotFoundException('Пользователь не найден')
 
