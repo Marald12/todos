@@ -15,8 +15,8 @@ export class User {
 	@Prop()
 	name: string
 
-	@Prop()
-	avatarPath: string
+	@Prop({ unique: false, default: '/uploads/avatar/default-avatar.png' })
+	avatarPath?: string
 
 	@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Todo' }] })
 	todos: Todo[]
