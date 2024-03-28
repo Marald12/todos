@@ -5,7 +5,9 @@ import {
 	Get,
 	Param,
 	Patch,
-	Post
+	Post,
+	UsePipes,
+	ValidationPipe
 } from '@nestjs/common'
 import { TodoService } from './todo.service'
 import { CreateTodoDto } from './dto/create-todo.dto'
@@ -19,6 +21,7 @@ export class TodoController {
 
 	@Post()
 	@Auth()
+	@UsePipes(new ValidationPipe())
 	create(@Body() dto: CreateTodoDto, @CurrentUser() user: any) {
 		return this.todoService.create(dto, user.id)
 	}
