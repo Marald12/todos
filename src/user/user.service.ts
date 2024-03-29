@@ -8,6 +8,7 @@ import { User } from './user.model'
 import { Model } from 'mongoose'
 import { CreateUserDto } from './dto/create-user.dto'
 import { genSalt, hash } from 'bcryptjs'
+import { UpdateUserDto } from './dto/update-user.dto'
 
 @Injectable()
 export class UserService {
@@ -47,5 +48,19 @@ export class UserService {
 		if (!user) throw new NotFoundException('Пользователь не найден')
 
 		return user
+	}
+
+	async updateUser(id: string, dto: UpdateUserDto) {
+		await this.findOneById(id)
+
+		return await this.userModel
+			.findByIdAndUpdate(
+				id,
+				{
+					...dto
+				},
+				{ new: true }
+			)
+			.exec()
 	}
 }
